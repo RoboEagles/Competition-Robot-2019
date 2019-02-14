@@ -1,6 +1,12 @@
 package org.usfirst.frc4579.sensors;
 
 public class Pixy2 {
+    int port;
 
-//	Why is Suheyb AKshUAlY Raul Castro
+    
+
+
+    public void Pixy2(int port){
+        this.port = port;
+    }
 }
