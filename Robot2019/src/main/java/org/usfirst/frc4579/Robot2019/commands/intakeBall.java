@@ -43,19 +43,22 @@ public class intakeBall extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.ballIntake.intake();
+        if(Robot.hatchLifter.activeSide == "Cargo") {
+            System.out.println("Using the ball intake");
+            Robot.ballIntake.intake();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return Robot.hatchLifter.activeSide == "Hatch";
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.ballIntake.stopMotor();
+        Robot.ballIntake.stopIntakeMotor();
     }
 
     // Called when another command which requires one or more of the same

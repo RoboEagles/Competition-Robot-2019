@@ -38,8 +38,30 @@ public class invertControls extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        // These conditionals flip which side is active
+        if(Robot.hatchLifter.activeSide == "Cargo") {
+            // Changest the active side to the hatch
+            Robot.hatchLifter.activeSide = "Hatch";
+
+            // Disables the ball side of the robot
+            Robot.ballLifter.reset();
+            Robot.ballIntake.reset();
+        }
+        else{
+            // Changest the active side to the cargo
+            Robot.hatchLifter.activeSide = "Cargo";
+
+            // Disables the hatch side of the robot
+            Robot.hatchLifter.reset();
+            Robot.hatchGrabber.reset();
+        }
+
+        // Inverts the joystick controls so the robot can drive backwards
         Robot.driveTrain.invertDrive();
+        
+        // Switches which camera feed is returned to the Driver Station
         Robot.vision.switchCamera();
+
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -50,7 +72,7 @@ public class invertControls extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

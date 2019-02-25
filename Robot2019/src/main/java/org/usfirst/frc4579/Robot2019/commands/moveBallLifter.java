@@ -43,6 +43,10 @@ public class moveBallLifter extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        if(Robot.hatchLifter.activeSide == "Cargo"){
+            // System.out.println("Using the cargo side");
+            Robot.ballLifter.moveBallLifter();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

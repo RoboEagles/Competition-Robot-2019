@@ -14,9 +14,12 @@ package org.usfirst.frc4579.Robot2019.subsystems;
 import org.usfirst.frc4579.sensors.*;
 import org.usfirst.frc4579.filters.*;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import org.usfirst.frc4579.Robot2019.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SPI;
@@ -59,6 +62,7 @@ public class Measurement extends Subsystem {
     // private final FlowMotion motion = new FlowMotion(SPI.Port.kOnboardCS0, 4);
     private final MPU6050    mpu =    new MPU6050(MPU6050.ACCELFULLSCALE.ACCEL2G, 
 			  							          MPU6050.GYROFULLSCALE.DEGSEC250);
+	AHRS imu = new AHRS(I2C.Port.kOnboard);
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -76,6 +80,20 @@ public class Measurement extends Subsystem {
     	// return;
     }  // End of updateMotion().
     
+	// ************************************* IMU METHODS ************************************** //
+	public double getIMU_Z(){
+		return imu.getAngle();
+	}
+
+	public double getIMU_ZRATE(){
+		return imu.getRate();
+	}
+
+	public double getIMU_ZMAX(){
+		return imu.getGyroFullScaleRangeDPS();
+	}
+
+	// ********************************* MPU METHODS *************************************** //
 
     // Update all the MPU6050 sensor readings.  Put this call in the execute() method 
     // of a Command.
@@ -83,16 +101,12 @@ public class Measurement extends Subsystem {
     	if (mpu.goodSensor) {
     		mpu.readAxes();
     	}
-//    	System.out.println(mpu.goodSensor);
+   	// System.out.println(mpu.goodSensor);
     	// Compute gyro turn data.
     	angleRate = mpu.gyroZ;
     	angleRateMax = mpu.gyroZMax;
     	angle = angle + angleRate * mpu.deltaT;
     }  // End of updateMPU().
-
-    public void resetMPUAngle() {
-    	angle = 0.0;
-    }
     
 	public double getAngle() {
 		return angle;
@@ -142,6 +156,15 @@ public class Measurement extends Subsystem {
     	angleRateLPF += filter.filter(angleRate) * mpu.deltaT;
     	return angleRateLPF;
     }
+
+    public void resetMPUAngle() {
+    	angle = 0.0;
+    }
+
+	public void reset(){
+		resetMPUAngle();
+		resetMotion();
+	}
 
     @Override
     public void initDefaultCommand() {
