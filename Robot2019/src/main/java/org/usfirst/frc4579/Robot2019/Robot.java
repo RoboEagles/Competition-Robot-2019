@@ -82,7 +82,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit(){
-
+        // Resets every subsystem
+        Robot.driveTrain.reset();
+        Robot.hatchLifter.reset();
+        Robot.hatchGrabber.reset();
+        Robot.vision.reset();
+        Robot.measurement.reset();
+        Robot.ballIntake.reset();
+        Robot.ballLifter.reset();
     }
 
     @Override
@@ -120,5 +127,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putString("Active Side: ",Robot.hatchLifter.activeSide);
     }
 }

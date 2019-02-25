@@ -15,6 +15,7 @@ import org.usfirst.frc4579.filters.*;
 import org.usfirst.frc4579.Robot2019.Robot;
 import org.usfirst.frc4579.Robot2019.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -84,7 +85,7 @@ public class DriveTrain extends Subsystem {
     public void joeyStickDrive(double x, double y) { //The finest drive code known to man.
 		
         //Read the gyro and the driveStick.
-		double gz = Robot.measurement.getAngle();
+		double gz = Robot.measurement.getIMU_Z();
 		double frwd = x;		//forward-back driveStick, speed control.
 		double turn = -y;	    //left-right driveStick, turn control, left turn is positive.
 
@@ -157,9 +158,9 @@ public class DriveTrain extends Subsystem {
 		final double limit = 0.05;
  
     	//Get the gyro data.
-		double gz = gyro.filter(Robot.measurement.angleRate);
-		double ga = Robot.measurement.angle;
-		double gzMax = Robot.measurement.angleRateMax;
+		double gz = gyro.filter(Robot.measurement.getIMU_ZRATE());
+		double ga = Robot.measurement.getIMU_Z();
+		double gzMax = Robot.measurement.getIMU_ZMAX();
 		
 		//Lower limits for the inputs, stop the motors. (This is for driveSticks.)
 		if (Math.abs(turn) < limit && Math.abs(frwd) < limit) { 
@@ -227,25 +228,45 @@ public class DriveTrain extends Subsystem {
 	    leftMotor.set(speed + halfCorrection);
 	    rightMotor.set(speed - halfCorrection); 
     }
-    
+
     // Drive method that uses joeyStickDrive and allows you to invert your direction and drive backwards
     public void competitionDrive(){
     	if(!isDriveInverted){
-    		Robot.driveTrain.joeyStickDrive(-Robot.oi.driveStick.getY(), Robot.oi.driveStick.getX());
+    		drive(-Robot.oi.driveStick.getX(), -Robot.oi.driveStick.getY());
     	}
     	else{
-    		Robot.driveTrain.joeyStickDrive(Robot.oi.driveStick.getY(), -Robot.oi.driveStick.getX());
+			System.out.println("inverted drive");
+    		drive(Robot.oi.driveStick.getX(), Robot.oi.driveStick.getY());
     	}
     }
-    
+	
+	// Flips the value of isDriveInverted which in turn flips the direction the robot drives in
     public void invertDrive(){
     	isDriveInverted = !isDriveInverted;
     }
-    
+	
+		// Vanilla drive with nothing special in it
+	// ********************************* DO NOT USE THIS METHOD IN COMPETITION ********************************
+	public void drive(double frwd, double turn){
+		// frwd = Math.pow(frwd, 2);
+		// turn = Math.pow(turn, 2);
+
+		robotDrive.arcadeDrive(frwd, turn);
+
+		SmartDashboard.putNumber("left speed: ", leftMotor.getSpeed());
+		SmartDashboard.putNumber("right speed: ", rightMotor.getSpeed());
+
+	}
+
     public void stop(){
     	leftMotor.stopMotor();
     	rightMotor.stopMotor();
     }
+
+	public void reset(){
+		stop();
+		isDriveInverted = false;
+	}
 
     @Override
     public void initDefaultCommand() {

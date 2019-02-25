@@ -44,7 +44,6 @@ public class measure extends Command {
     @Override
     protected void execute() {
         Robot.measurement.updateMPU();
-        Robot.measurement.updateMotion();
     }
 
     // Make this return true when this Command no longer needs to run execute()

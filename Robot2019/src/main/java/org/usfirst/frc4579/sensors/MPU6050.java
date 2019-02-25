@@ -29,14 +29,14 @@ public class MPU6050 extends SendableBase {
 	
 	private static final byte   deviceAddress         = 0x68;
 	private static final int    numCalibrationSamples = 100;
-	private static final double	upsideDown			  = -1.0;  //-1.0 for upside down mounting.
+	private static final double	upsideDown			  = 1.0;  //-1.0 for upside down mounting.
 
 	// Instantiate channels.
-	private I2C MPU;
+	private I2C MPU = new I2C(I2C.Port.kOnboard, (int)deviceAddress);
 	// Initialize delta time variables.
 	private double time = Timer.getFPGATimestamp();
 	private double lastTime = time;
-	// Acceleration configuration data.
+	// Acceleration configuration data
 	public  enum ACCELFULLSCALE { ACCEL2G  , ACCEL4G  , ACCEL8G   , ACCEL16G };
 	public  enum GYROFULLSCALE  { DEGSEC250, DEGSEC500, DEGSEC1000, DEGSEC2000};
 	// Acceleration axes configuration data.
@@ -88,13 +88,16 @@ public class MPU6050 extends SendableBase {
 		gyroRegConfigValue  = gyroFullScaleRegSettings [gyroFullScale .ordinal()];
 		gyroScaleFactor     = gyroScaleFactors         [gyroFullScale .ordinal()];
 		// Set up the I2C port.
-		MPU = new I2C(I2C.Port.kOnboard, (int)deviceAddress);
-		//private I2C MPU = new I2C(I2C.Port.kOnboard, (int)deviceAddress);
+		//MPU = new I2C(I2C.Port.kOnboard, (int)deviceAddress);
+		// final I2C MPU = new I2C(I2C.Port.kOnboard, (int)deviceAddress);
 
-		if (MPU.addressOnly()) {  //Test bus address, true if aborted transaction.
-			goodSensor = false;
-		}
-		goodSensor = init();
+		// if (MPU.addressOnly()) {  //Test bus address, true if aborted transaction.
+		// 	goodSensor = false;
+		// 	System.out.println("Aborted transaction");
+		// }
+		// else{
+			goodSensor = init();
+		// }
 	}  // End of Constructor().
  
 	
