@@ -85,13 +85,13 @@ public class BallIntake extends Subsystem {
 	}
     
     // Method for tilting the arms up into the perimeter
-    public void tiltIntake(){
-        if(Robot.oi.everyStick.getRawButton(11)){
-            tiltMotor.set(.2);
-        }
-        else {
-            tiltMotor.set(-.4);
-        }
+    public void tiltIntakeUp(){
+        tiltMotor.set(-.4);
+    }
+
+    // Method for tilting the arms down so that we can intake a ball
+    public void tiltIntakeDown(){
+        tiltMotor.set(.2);
     }
 
     // Method for stopping the intake motors
