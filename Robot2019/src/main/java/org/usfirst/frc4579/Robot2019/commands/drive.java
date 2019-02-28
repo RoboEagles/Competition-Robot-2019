@@ -43,7 +43,9 @@ public class drive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.driveTrain.competitionDrive();
+        // Robot.driveTrain.competitionDrive();
+        Robot.driveTrain.drive(Robot.oi.driveStick.getX(), Robot.oi.driveStick.getY());
+        System.out.println(Robot.measurement.getIMU_Z());
     }
 
     // Make this return true when this Command no longer needs to run execute()

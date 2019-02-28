@@ -57,7 +57,7 @@ public class BallLifter extends Subsystem {
         addChild("lifterMotor",lifterMotor);
         lifterMotor.setInverted(false);
         
-        ballLifter_PID = new PIDController(0.1, 0.0, 0.0, 0.0, encoder, lifterMotor, 0.02);
+        ballLifter_PID = new PIDController(0.001, 0.0, 0.0, 0.0, encoder, lifterMotor, 0.02);
         addChild("ballLifter_PID",ballLifter_PID);
         ballLifter_PID.setContinuous(false);
         ballLifter_PID.setAbsoluteTolerance(0.2);

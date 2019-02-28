@@ -66,7 +66,7 @@ public class DriveTrain extends Subsystem {
 
     public final double TURN_SPEED = 0.12;
 
-    final double BASELINE = 19.75; // inches.
+    final double BASELINE = 23; // inches.
     final double MAXSPEED = 93.0;  // inches per second.
     
     private FirstOrderLPF vLeftLPF = new FirstOrderLPF(0.7);
@@ -85,9 +85,9 @@ public class DriveTrain extends Subsystem {
     public void joeyStickDrive(double x, double y) { //The finest drive code known to man.
 		
         //Read the gyro and the driveStick.
-		double gz = Robot.measurement.getIMU_Z();
+		double gz = -Robot.measurement.getIMU_ZRATE();
 		double frwd = x;		//forward-back driveStick, speed control.
-		double turn = -y;	    //left-right driveStick, turn control, left turn is positive.
+		double turn = y;	    //left-right driveStick, turn control, left turn is positive.
 
 		//Lower limits for the driveStick, stop the motors.
 		if (Math.abs(turn) < 0.05 && Math.abs(frwd) < 0.05) { 
@@ -111,7 +111,7 @@ public class DriveTrain extends Subsystem {
 		turn2 = turn2 * sensitivity;
 		
 		// Sets the speed scaling of the robot
-		double speed = (-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
+		double speed = 1; //(-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
 		
 		//Low pass filter the speed settings to the drive motors.
 		double vLeft = vLeftLPF.filter(frwd2 + turn2 / 2.0) * speed;
@@ -251,7 +251,10 @@ public class DriveTrain extends Subsystem {
 		// frwd = Math.pow(frwd, 2);
 		// turn = Math.pow(turn, 2);
 
-		robotDrive.arcadeDrive(frwd, turn);
+		// Sets the speed scaling of the robot
+		double speed = (-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
+
+		robotDrive.arcadeDrive(frwd*speed, turn*speed);
 
 		SmartDashboard.putNumber("left speed: ", leftMotor.getSpeed());
 		SmartDashboard.putNumber("right speed: ", rightMotor.getSpeed());

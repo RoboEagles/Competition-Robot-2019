@@ -289,7 +289,7 @@ Children:
         Minimum Output: !!robotbuilder.data.properties.DoubleProperty {default: -1,
           name: Minimum Output, validators: null, value: -1.0}
         P: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: P, validators: null,
-          value: 0.1}
+          value: 0.001}
         Input: !!robotbuilder.data.properties.ChildSelectionProperty
           default: 0
           name: Input
@@ -1012,10 +1012,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: BallIntake}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id018 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id018
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
