@@ -55,10 +55,16 @@ public class HatchGrabber extends Subsystem {
         hatchState = !hatchState;
         if(hatchState){
             hatchServo.setAngle(0);
+            hatchState = false;
         }
         else{
             hatchServo.setAngle(100);
+            hatchState = true;
         }
+    }
+
+    public boolean isHatchOpen(){
+        return hatchState;
     }
 
     public void reset(){

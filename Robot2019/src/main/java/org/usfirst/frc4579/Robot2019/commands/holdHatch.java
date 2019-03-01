@@ -11,6 +11,8 @@
 
 package org.usfirst.frc4579.Robot2019.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc4579.Robot2019.Robot;
 
 /**
@@ -41,6 +43,7 @@ public class holdHatch extends Command {
             System.out.println("Using the hatch holder");
             Robot.hatchGrabber.changeState();
         }
+        SmartDashboard.putBoolean("Hatch Open: ", Robot.hatchGrabber.isHatchOpen());
     }
 
     // Called repeatedly when this Command is scheduled to run

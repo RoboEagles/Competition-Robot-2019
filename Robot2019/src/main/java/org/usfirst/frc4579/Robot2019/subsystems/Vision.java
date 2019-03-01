@@ -87,8 +87,8 @@ public class Vision extends Subsystem {
 	// //Sets the camera settings, such as resolution and FPS
 	public void initCamera(){
 		// Initializing all the camera objects
-		cargoCamera = new UsbCamera("Cargo Camera", 1);		
-		hatchCamera = new UsbCamera("Hatch Camera", 0);
+		cargoCamera = new UsbCamera("Cargo Camera", 0);		
+		hatchCamera = new UsbCamera("Hatch Camera", 1);
 
 		inputStream = CameraServer.getInstance().getVideo(cargoCamera);
 		outputStream = CameraServer.getInstance().putVideo("Camera", resolution_HEIGHT, resolution_WIDTH);
@@ -98,7 +98,7 @@ public class Vision extends Subsystem {
 		// Initializes the settings for the camera
 		cargoCamera.setResolution(resolution_HEIGHT,resolution_WIDTH);
 		cargoCamera.setFPS(30);
-		
+
 		hatchCamera.setResolution(resolution_HEIGHT,resolution_WIDTH);
 		hatchCamera.setFPS(30);
 
