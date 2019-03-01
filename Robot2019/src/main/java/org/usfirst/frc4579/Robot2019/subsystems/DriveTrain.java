@@ -75,7 +75,7 @@ public class DriveTrain extends Subsystem {
     
     public double angle = 0.0;
 
-    public boolean isDriveInverted = false;
+    public boolean isDriveInverted = true;
     
  // Return true if the motors are commanded to zero.
     public boolean isNotMoving() {   
@@ -231,12 +231,11 @@ public class DriveTrain extends Subsystem {
 
     // Drive method that uses joeyStickDrive and allows you to invert your direction and drive backwards
     public void competitionDrive(){
-    	if(!isDriveInverted){
-    		drive(-Robot.oi.driveStick.getX(), -Robot.oi.driveStick.getY());
+    	if(Robot.hatchLifter.activeSide == "Cargo"){
+			joeyStickDrive(Robot.oi.driveStick.getY(), Robot.oi.driveStick.getX());
     	}
     	else{
-			System.out.println("inverted drive");
-    		drive(Robot.oi.driveStick.getX(), Robot.oi.driveStick.getY());
+			joeyStickDrive(-Robot.oi.driveStick.getY(), Robot.oi.driveStick.getX());
     	}
     }
 	

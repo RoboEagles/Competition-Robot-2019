@@ -52,7 +52,8 @@ public class HatchGrabber extends Subsystem {
     // Method for alternating between holding the hatch and releasing it
     // Intended to run within the holdHatch command (when button #4 is pressed)
     public void changeState(){
-        hatchState = !hatchState;
+        System.out.println("Changing hatch servo state");
+        
         if(hatchState){
             hatchServo.setAngle(0);
             hatchState = false;
