@@ -157,7 +157,7 @@ Children:
         Name: encoder
       Properties:
         Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Limit Output, validators: null, value: false}
+          name: Limit Output, validators: null, value: true}
         D: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D, validators: null,
           value: 0.0}
         Continuous: !!robotbuilder.data.properties.BooleanProperty {default: false,
@@ -169,7 +169,7 @@ Children:
         I: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: I, validators: null,
           value: 0.0}
         Period: !!robotbuilder.data.properties.DoubleProperty {default: 0.02, name: Period,
-          validators: null, value: 0.02}
+          validators: null, value: 0.5}
         Minimum Input: !!robotbuilder.data.properties.DoubleProperty {default: 0,
           name: Minimum Input, validators: null, value: 0.0}
         Limit Input: !!robotbuilder.data.properties.BooleanProperty {default: false,
@@ -532,7 +532,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '4'
+          value: '3'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -561,7 +561,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '2'
+          value: '8'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -590,7 +590,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '3'
+          value: '9'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -619,7 +619,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '9'
+          value: '5'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -648,7 +648,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '9'
+          value: '5'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -1041,10 +1041,10 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\suhey\',
-    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\suhey\'}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\suhey\FRCProjects',
-    extension: null, folder: true, name: Export Directory, validators: null, value: 'C:\Users\suhey\git\Competition-Robot-2019'}
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\admin\',
+    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\admin\git\Competition-Robot-2019'}
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\admin\FRCProjects',
+    extension: null, folder: true, name: Export Directory, validators: null, value: 'C:\Users\admin\git\Competition-Robot-2019'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
 Base: Robot

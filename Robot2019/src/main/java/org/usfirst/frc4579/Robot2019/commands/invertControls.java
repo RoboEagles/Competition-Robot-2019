@@ -42,6 +42,7 @@ public class invertControls extends Command {
         if(Robot.hatchLifter.activeSide == "Cargo") {
             // Changest the active side to the hatch
             Robot.hatchLifter.activeSide = "Hatch";
+            Robot.vision.activateHatchCamera();
 
             // Disables the ball side of the robot
             Robot.ballLifter.reset();
@@ -50,6 +51,7 @@ public class invertControls extends Command {
         else{
             // Changest the active side to the cargo
             Robot.hatchLifter.activeSide = "Cargo";
+            Robot.vision.activateCargoCamera();
 
             // Disables the hatch side of the robot
             Robot.hatchLifter.reset();
@@ -58,9 +60,6 @@ public class invertControls extends Command {
 
         // Inverts the joystick controls so the robot can drive backwards
         Robot.driveTrain.invertDrive();
-        
-        // Switches which camera feed is returned to the Driver Station
-        Robot.vision.switchCamera();
 
     }
 

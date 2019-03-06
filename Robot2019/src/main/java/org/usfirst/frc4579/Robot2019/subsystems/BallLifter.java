@@ -139,11 +139,13 @@ public class BallLifter extends Subsystem {
     // Moves the lifter up and down at a set speed depending on whether
     // button #6 and 7 are pressed
     public void moveManually(){
+        double speed = ((-Robot.oi.everyStick.getZ() + 1.0) / 4.0)+ .5;
+
         if(Robot.oi.everyStick.getRawButton(6)){
-            lifterMotor.setSpeed(.9);
+            lifterMotor.setSpeed(1* speed);
         }
         else if(Robot.oi.everyStick.getRawButton(7)){
-            lifterMotor.setSpeed(-.8);
+            lifterMotor.setSpeed(-.8 * speed);
         }
         else{
             lifterMotor.stopMotor();

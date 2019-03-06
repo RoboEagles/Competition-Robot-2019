@@ -40,7 +40,7 @@ public class holdHatch extends Command {
     @Override
     protected void initialize() {
         if(Robot.hatchLifter.activeSide == "Hatch"){
-            System.out.println("Using the hatch holder");
+            // System.out.println("Using the hatch holder");
             Robot.hatchGrabber.changeState();
         }
         SmartDashboard.putBoolean("Hatch Open: ", Robot.hatchGrabber.isHatchOpen());

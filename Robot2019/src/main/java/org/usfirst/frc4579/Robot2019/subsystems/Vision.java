@@ -49,8 +49,8 @@ public class Vision extends Subsystem {
 		initVision();
     }
 
-    final int resolution_HEIGHT = 320;
-	final int resolution_WIDTH = 240;
+    final int resolution_HEIGHT = 160;
+	final int resolution_WIDTH = 120;
 	
 	UsbCamera cargoCamera;
 	UsbCamera hatchCamera;
@@ -87,10 +87,10 @@ public class Vision extends Subsystem {
 	// //Sets the camera settings, such as resolution and FPS
 	public void initCamera(){
 		// Initializing all the camera objects
-		cargoCamera = new UsbCamera("Cargo Camera", 0);		
-		hatchCamera = new UsbCamera("Hatch Camera", 1);
+		cargoCamera = new UsbCamera("Cargo Camera", 1);		
+		hatchCamera = new UsbCamera("Hatch Camera", 0);
 
-		inputStream = CameraServer.getInstance().getVideo(cargoCamera);
+		inputStream = CameraServer.getInstance().getVideo(hatchCamera);
 		outputStream = CameraServer.getInstance().putVideo("Camera", resolution_HEIGHT, resolution_WIDTH);
 
 		cameraName = cargoCamera.getName();
@@ -105,6 +105,16 @@ public class Vision extends Subsystem {
 		// System.out.println(image.size());
 	}
 	
+	public void activateHatchCamera(){
+		inputStream.setSource(hatchCamera);
+		cameraName = hatchCamera.getName();
+	}
+
+	public void activateCargoCamera(){
+		inputStream.setSource(cargoCamera);
+		cameraName = cargoCamera.getName();
+	}
+
 	// Switches which camera is set as the input stream
 	public void switchCamera(){
 		currentCamera = (short) ((++currentCamera)%2);

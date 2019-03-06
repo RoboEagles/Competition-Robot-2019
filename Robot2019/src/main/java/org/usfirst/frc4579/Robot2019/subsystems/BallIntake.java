@@ -73,15 +73,15 @@ public class BallIntake extends Subsystem {
     // Method for ejecting the ball once it is inside the intake.
     // Intended to run within the ejectBall command(button #5 is held)
 	public void eject(){
-		System.out.println("Ejecting the ball!!!");
+		// System.out.println("Ejecting the ball!!!");
         intakeMotor.set(1);
 	}
     
     // Method for sucking the ball into the intake.
     // Intended to run within the intakeBall command(button #3 is held)
 	public void intake(){
-		System.out.println("Intaking the ball!!!");
-        intakeMotor.set(-.8);
+		// System.out.println("Intaking the ball!!!");
+        intakeMotor.set(-.7);
 	}
     
     // Method for tilting the arms up into the perimeter

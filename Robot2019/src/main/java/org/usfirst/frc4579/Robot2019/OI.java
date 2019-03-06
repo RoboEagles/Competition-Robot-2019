@@ -74,15 +74,15 @@ public class OI {
         tiltIntakeUp_Button.whileHeld(new tiltIntakeUp());
         tiltIntakeDown_Button = new JoystickButton(everyStick, 10);
         tiltIntakeDown_Button.whileHeld(new tiltIntakeDown());
-        hatchLiftMode_Button = new JoystickButton(everyStick, 9);
+        hatchLiftMode_Button = new JoystickButton(everyStick, 5);
         hatchLiftMode_Button.whenPressed(new hatchLiftMode());
-        ballLiftMode_Button = new JoystickButton(everyStick, 9);
+        ballLiftMode_Button = new JoystickButton(everyStick, 5);
         ballLiftMode_Button.whenPressed(new ballLiftMode());
-        ejectBall_Button = new JoystickButton(everyStick, 3);
+        ejectBall_Button = new JoystickButton(everyStick, 9);
         ejectBall_Button.whileHeld(new ejectBall());
-        intakeBall_Button = new JoystickButton(everyStick, 2);
+        intakeBall_Button = new JoystickButton(everyStick, 8);
         intakeBall_Button.whileHeld(new intakeBall());
-        holdHatch_button = new JoystickButton(everyStick, 4);
+        holdHatch_button = new JoystickButton(everyStick, 3);
         holdHatch_button.whenPressed(new holdHatch());
         driveStick = new Joystick(0);
         

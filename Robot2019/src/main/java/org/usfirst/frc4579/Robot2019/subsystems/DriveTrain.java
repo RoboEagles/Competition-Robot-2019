@@ -111,7 +111,7 @@ public class DriveTrain extends Subsystem {
 		turn2 = turn2 * sensitivity;
 		
 		// Sets the speed scaling of the robot
-		double speed = 1; //(-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
+		double speed = (-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
 		
 		//Low pass filter the speed settings to the drive motors.
 		double vLeft = vLeftLPF.filter(frwd2 + turn2 / 2.0) * speed;

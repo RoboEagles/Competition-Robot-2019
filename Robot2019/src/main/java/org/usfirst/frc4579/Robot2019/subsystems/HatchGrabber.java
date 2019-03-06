@@ -14,6 +14,7 @@ package org.usfirst.frc4579.Robot2019.subsystems;
 
 import org.usfirst.frc4579.Robot2019.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -49,10 +50,21 @@ public class HatchGrabber extends Subsystem {
 
     boolean hatchState = false;
 
+    public void init(){
+        if(hatchState){
+            hatchServo.setAngle(0);
+        }
+        else{
+            hatchServo.setAngle(100);
+        }
+        SmartDashboard.putBoolean("Hatch Open: ", true);
+
+    }
+
     // Method for alternating between holding the hatch and releasing it
     // Intended to run within the holdHatch command (when button #4 is pressed)
     public void changeState(){
-        System.out.println("Changing hatch servo state");
+        // System.out.println("Changing hatch servo state");
         
         if(hatchState){
             hatchServo.setAngle(0);
