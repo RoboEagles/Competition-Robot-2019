@@ -226,10 +226,10 @@ public class BallLifter extends Subsystem {
     public void moveManually(){
         double speed = ((-Robot.oi.everyStick.getZ() + 1.0) / 4.0)+ .5;
 
-        if(Robot.oi.everyStick.getRawButton(6)){
+        if(Robot.oi.everyStick.getRawButton(7)){
             lifterMotor.setSpeed(1* speed);
         }
-        else if(Robot.oi.everyStick.getRawButton(7)){
+        else if(Robot.oi.everyStick.getRawButton(6)){
             lifterMotor.setSpeed(-.8 * speed);
         }
         else{
