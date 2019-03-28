@@ -41,7 +41,7 @@ public class hatchLiftMode extends Command {
         if(Robot.hatchLifter.activeSide == "Hatch"){
             Robot.hatchLifter.enableIntervals();
             
-            // System.out.println("Switching interval mode");
+            System.out.println("Switching interval mode");
         }
     }
 

@@ -59,111 +59,38 @@ public class Measurement extends Subsystem {
 	public double motionDeltaT = 0.0;	// Flow motion delta t from Flow Sensor.
 	
 	private FirstOrderLPF filter = new FirstOrderLPF(0.5);
-    // private final FlowMotion motion = new FlowMotion(SPI.Port.kOnboardCS0, 4);
-    private final MPU6050    mpu =    new MPU6050(MPU6050.ACCELFULLSCALE.ACCEL2G, 
-			  							          MPU6050.GYROFULLSCALE.DEGSEC250);
+
 	AHRS imu = new AHRS(I2C.Port.kOnboard);
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    // Update all the Flow Motion readings.  Put this call in the execute() method of a Command.
-    public void updateMotion() {
-    	// if (motion.goodSensor) {
-    	// 	motion.readMotionCounts();
-    	// }
-    	// // Compute motion data.
-    	// motionX += motion.deltaX;
-    	// motionY += motion.deltaY;
-    	// speed = motionX / motion.deltaT;
-    	// distance += speed * motion.deltaT;
-    	// return;
-    }  // End of updateMotion().
     
 	// ************************************* IMU METHODS ************************************** //
-	public double getIMU_Z(){
+	// Gyro Values
+	public double getIMU_GYROZ(){
 		return imu.getAngle();
 	}
 
-	public double getIMU_ZRATE(){
+	public double getIMU_GYROZRATE(){
 		return imu.getRate();
 	}
 
-	public double getIMU_ZMAX(){
+	public double getIMU_GYROZMAX(){
 		return imu.getGyroFullScaleRangeDPS();
 	}
 
-	// ********************************* MPU METHODS *************************************** //
-
-    // Update all the MPU6050 sensor readings.  Put this call in the execute() method 
-    // of a Command.
-    public void updateMPU() {
-    	if (mpu.goodSensor) {
-    		mpu.readAxes();
-    	}
-   	// System.out.println(mpu.goodSensor);
-    	// Compute gyro turn data.
-    	angleRate = mpu.gyroZ;
-    	angleRateMax = mpu.gyroZMax;
-    	angle = angle + angleRate * mpu.deltaT;
-    }  // End of updateMPU().
-    
-	public double getAngle() {
-		return angle;
-	}
-	
-	public double getAngleRate() {
-		return angleRate;
-	}
-	
-	public double getAngleRateMax() {
-		return angleRateMax;
-	}
-	
-	public double getAngleFiltered() {
-		return angleRateLPF;
-	}
-	
-	public double getMPUDeltaT() {
-		return mpuDeltaT;
-	}
-	
-	public void resetMotion(){
-		motionX = 0.0;
-		motionY = 0.0;
-	}
-	
-	public double getMotionX() {
-		return motionX;
-	}
-	
-	public double getMotionY() {
-		return motionY;
-	}
-	public double getSpeed() {
-		return speed;
-	}
-	
-	public double getDistance() {
-		return distance;
-	}
-	
-	public double getMotionDeltaT() {
-		return motionDeltaT;
+	// Accelerometer values
+	public double getIMU_ACCELX(){
+		return imu.getWorldLinearAccelX();
 	}
 
-    public double getLPFAngle() {
-    	angleRateLPF += filter.filter(angleRate) * mpu.deltaT;
-    	return angleRateLPF;
-    }
-
-    public void resetMPUAngle() {
-    	angle = 0.0;
-    }
+	public double getIMU_ACCELY(){
+		return imu.getWorldLinearAccelY();
+	}
 
 	public void reset(){
-		resetMPUAngle();
-		resetMotion();
+
 	}
 
     @Override

@@ -39,7 +39,9 @@ public class ballLiftMode extends Command {
     @Override
     protected void initialize() {
         if(Robot.hatchLifter.activeSide == "Cargo") {
-            //Robot.ballLifter.enableIntervals();
+            Robot.ballLifter.enableIntervals();
+
+            System.out.println("Switching interval mode");
         }
     }
 

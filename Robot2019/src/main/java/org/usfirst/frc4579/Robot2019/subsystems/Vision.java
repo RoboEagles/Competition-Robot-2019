@@ -136,7 +136,7 @@ public class Vision extends Subsystem {
 	// Pulls an image from the input stream and puts it into the output stream
 	public void updateImage(){		
 		// Prints the name of the camera in use onto the SmartDashboard
-		SmartDashboard.putString("Camera in use: ", cameraName);
+		// SmartDashboard.putString("Camera in use: ", cameraName);
 
 		// Attempts to get a frame from the camera and show it on the SmartDashboard
 		try{

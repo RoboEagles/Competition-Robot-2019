@@ -69,10 +69,12 @@ public class HatchGrabber extends Subsystem {
         if(hatchState){
             hatchServo.setAngle(0);
             hatchState = false;
+            System.out.println("hatch is closed");
         }
         else{
             hatchServo.setAngle(100);
             hatchState = true;
+            System.out.println("hatch is open");
         }
     }
 

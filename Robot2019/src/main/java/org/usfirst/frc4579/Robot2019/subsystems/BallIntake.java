@@ -81,7 +81,7 @@ public class BallIntake extends Subsystem {
     // Intended to run within the intakeBall command(button #3 is held)
 	public void intake(){
 		// System.out.println("Intaking the ball!!!");
-        intakeMotor.set(-.7);
+        intakeMotor.set(-1);
 	}
     
     // Method for tilting the arms up into the perimeter

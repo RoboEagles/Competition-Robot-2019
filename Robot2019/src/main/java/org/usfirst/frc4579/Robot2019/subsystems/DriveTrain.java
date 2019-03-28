@@ -85,7 +85,7 @@ public class DriveTrain extends Subsystem {
     public void joeyStickDrive(double x, double y) { //The finest drive code known to man.
 		
         //Read the gyro and the driveStick.
-		double gz = -Robot.measurement.getIMU_ZRATE();
+		double gz = -Robot.measurement.getIMU_GYROZRATE();
 		double frwd = x;		//forward-back driveStick, speed control.
 		double turn = y;	    //left-right driveStick, turn control, left turn is positive.
 
@@ -158,9 +158,9 @@ public class DriveTrain extends Subsystem {
 		final double limit = 0.05;
  
     	//Get the gyro data.
-		double gz = gyro.filter(Robot.measurement.getIMU_ZRATE());
-		double ga = Robot.measurement.getIMU_Z();
-		double gzMax = Robot.measurement.getIMU_ZMAX();
+		double gz = gyro.filter(Robot.measurement.getIMU_GYROZRATE());
+		double ga = Robot.measurement.getIMU_GYROZ();
+		double gzMax = Robot.measurement.getIMU_GYROZMAX();
 		
 		//Lower limits for the inputs, stop the motors. (This is for driveSticks.)
 		if (Math.abs(turn) < limit && Math.abs(frwd) < limit) { 
@@ -218,13 +218,13 @@ public class DriveTrain extends Subsystem {
         
 
     public void driveStraight(double speed) {
-	    double halfCorrection = ((Robot.measurement.getAngleRate() * .006) + (Robot.measurement.getAngle() * .028)) /2.0;
+	    double halfCorrection = ((Robot.measurement.getIMU_GYROZRATE() * .006) + (Robot.measurement.getIMU_GYROZ() * .028)) /2.0;
 	    leftMotor.set(speed + halfCorrection);
 	    rightMotor.set(speed - halfCorrection);
     }
     
     public void driveStraightReference(double speed, double reference){
-	    double halfCorrection = ((Robot.measurement.getAngleRate() * .006) + ((Robot.measurement.getAngle()-reference) * .028)) /2.0;
+	    double halfCorrection = ((Robot.measurement.getIMU_GYROZRATE() * .006) + ((Robot.measurement.getIMU_GYROZ()-reference) * .028)) /2.0;
 	    leftMotor.set(speed + halfCorrection);
 	    rightMotor.set(speed - halfCorrection); 
     }
@@ -232,10 +232,10 @@ public class DriveTrain extends Subsystem {
     // Drive method that uses joeyStickDrive and allows you to invert your direction and drive backwards
     public void competitionDrive(){
     	if(Robot.hatchLifter.activeSide == "Cargo"){
-			joeyStickDrive(Robot.oi.driveStick.getY(), Robot.oi.driveStick.getX());
+			joeyStickDrive(Robot.oi.driveStick.getY(), Robot.oi.driveStick.getZ());
     	}
     	else{
-			joeyStickDrive(-Robot.oi.driveStick.getY(), Robot.oi.driveStick.getX());
+			joeyStickDrive(-Robot.oi.driveStick.getY(), Robot.oi.driveStick.getZ());
     	}
     }
 	
@@ -243,22 +243,6 @@ public class DriveTrain extends Subsystem {
     public void invertDrive(){
     	isDriveInverted = !isDriveInverted;
     }
-	
-		// Vanilla drive with nothing special in it
-	// ********************************* DO NOT USE THIS METHOD IN COMPETITION ********************************
-	public void drive(double frwd, double turn){
-		// frwd = Math.pow(frwd, 2);
-		// turn = Math.pow(turn, 2);
-
-		// Sets the speed scaling of the robot
-		double speed = (-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
-
-		robotDrive.arcadeDrive(frwd*speed, turn*speed);
-
-		SmartDashboard.putNumber("left speed: ", leftMotor.getSpeed());
-		SmartDashboard.putNumber("right speed: ", rightMotor.getSpeed());
-
-	}
 
     public void stop(){
     	leftMotor.stopMotor();
