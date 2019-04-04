@@ -105,13 +105,13 @@ public class DriveTrain extends Subsystem {
 		
 		
 		//Limit the control amount at high and low speeds, to avoid spinouts.
-		double maxSens = 0.55;
-		double minSens = 0.2;
+		double maxSens = 0.8;
+		double minSens = 0.3;
 		double sensitivity = maxSens - Math.abs(frwd2) * (maxSens - minSens);
 		turn2 = turn2 * sensitivity;
 		
 		// Sets the speed scaling of the robot
-		double speed = (-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
+		double speed = (-Robot.oi.driveStick.getThrottle() + 2.3) / 3.0;
 		
 		//Low pass filter the speed settings to the drive motors.
 		double vLeft = vLeftLPF.filter(frwd2 + turn2 / 2.0) * speed;
@@ -232,10 +232,10 @@ public class DriveTrain extends Subsystem {
     // Drive method that uses joeyStickDrive and allows you to invert your direction and drive backwards
     public void competitionDrive(){
     	if(Robot.hatchLifter.activeSide == "Cargo"){
-			joeyStickDrive(Robot.oi.driveStick.getY(), Robot.oi.driveStick.getZ());
+			joeyStickDrive(Robot.oi.driveStick.getY(), Robot.oi.driveStick.getZ() * .85);
     	}
     	else{
-			joeyStickDrive(-Robot.oi.driveStick.getY(), Robot.oi.driveStick.getZ());
+			joeyStickDrive(-Robot.oi.driveStick.getY(), Robot.oi.driveStick.getZ() * .85);
     	}
     }
 	

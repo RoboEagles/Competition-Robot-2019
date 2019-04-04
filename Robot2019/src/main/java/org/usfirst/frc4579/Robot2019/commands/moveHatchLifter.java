@@ -46,12 +46,10 @@ public class moveHatchLifter extends Command {
         if(Robot.hatchLifter.activeSide == "Hatch"){
             Robot.hatchLifter.moveHatchLifter();
 
-            // Robot.hatchLifter.getEncoderCount();
-
-            if(Robot.oi.everyStick.getRawButton(8)){
-                System.out.print("Encoder value is: ");
-                Robot.hatchLifter.getEncoderCount();
-            }
+            // if(Robot.oi.everyStick.getRawButton(8)){
+            //     System.out.print("Encoder value is: ");
+            //     Robot.hatchLifter.getEncoderCount();
+            // }
 
         }
     }

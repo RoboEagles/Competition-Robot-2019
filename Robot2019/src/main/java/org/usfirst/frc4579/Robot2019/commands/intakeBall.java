@@ -44,7 +44,7 @@ public class intakeBall extends Command {
     @Override
     protected void execute() {
         if(Robot.hatchLifter.activeSide == "Cargo") {
-            System.out.println("Using the ball intake");
+            // System.out.println("Using the ball intake");
             Robot.ballIntake.intake();
         }
     }

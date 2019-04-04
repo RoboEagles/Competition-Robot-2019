@@ -74,7 +74,7 @@ public class BallIntake extends Subsystem {
     // Intended to run within the ejectBall command(button #5 is held)
 	public void eject(){
 		// System.out.println("Ejecting the ball!!!");
-        intakeMotor.set(1);
+        intakeMotor.set(.7);
 	}
     
     // Method for sucking the ball into the intake.
