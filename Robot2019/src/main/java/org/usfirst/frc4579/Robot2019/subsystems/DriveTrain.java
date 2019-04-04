@@ -148,73 +148,73 @@ public class DriveTrain extends Subsystem {
 		return;
 	}  // End of joeyStickDrive().
     
-    // This is an alternative version of driving that adds the use of the robot angle
-    // as measured in the measure1 subsystem to be used for steering.  This version
-    // uses both the angle rate and the angle as measured from the driveStick to control
-    // the robot steering.  Therefore, it replaces the old driveStraight() method.  
-    // This method can be used with both driveStick and autonomous inputs.
-    // @param:  frwd is positive ahead, turn is positive to the left.
-    public void SmoothDrive(double frwd, double turn) { //The finest-er drive code known to man.
-		final double limit = 0.05;
+//     // This is an alternative version of driving that adds the use of the robot angle
+//     // as measured in the measure1 subsystem to be used for steering.  This version
+//     // uses both the angle rate and the angle as measured from the driveStick to control
+//     // the robot steering.  Therefore, it replaces the old driveStraight() method.  
+//     // This method can be used with both driveStick and autonomous inputs.
+//     // @param:  frwd is positive ahead, turn is positive to the left.
+//     public void SmoothDrive(double frwd, double turn) { //The finest-er drive code known to man.
+// 		final double limit = 0.05;
  
-    	//Get the gyro data.
-		double gz = gyro.filter(Robot.measurement.getIMU_GYROZRATE());
-		double ga = Robot.measurement.getIMU_GYROZ();
-		double gzMax = Robot.measurement.getIMU_GYROZMAX();
+//     	//Get the gyro data.
+// 		double gz = gyro.filter(Robot.measurement.getIMU_GYROZRATE());
+// 		double ga = Robot.measurement.getIMU_GYROZ();
+// 		double gzMax = Robot.measurement.getIMU_GYROZMAX();
 		
-		//Lower limits for the inputs, stop the motors. (This is for driveSticks.)
-		if (Math.abs(turn) < limit && Math.abs(frwd) < limit) { 
-			turn = 0.0;
-			frwd = 0.0;
-		}
+// 		//Lower limits for the inputs, stop the motors. (This is for driveSticks.)
+// 		if (Math.abs(turn) < limit && Math.abs(frwd) < limit) { 
+// 			turn = 0.0;
+// 			frwd = 0.0;
+// 		}
 		
-		//Decrease the low speed sensitivities of the inputs.
-//		double frwd2 = Math.signum(frwd) * Math.pow(Math.abs(frwd), 1.5);
-//		double turn2 = Math.signum(turn) * Math.pow(Math.abs(turn), 2.0);
-//		JGH Try this alternate version that takes the limits into account.
-		double frwd2 = Math.signum(frwd) * Math.pow(Math.abs(frwd - limit), 1.5);
-		double turn2 = Math.signum(turn) * Math.pow(Math.abs(turn - limit), 2.0);
+// 		//Decrease the low speed sensitivities of the inputs.
+// //		double frwd2 = Math.signum(frwd) * Math.pow(Math.abs(frwd), 1.5);
+// //		double turn2 = Math.signum(turn) * Math.pow(Math.abs(turn), 2.0);
+// //		JGH Try this alternate version that takes the limits into account.
+// 		double frwd2 = Math.signum(frwd) * Math.pow(Math.abs(frwd - limit), 1.5);
+// 		double turn2 = Math.signum(turn) * Math.pow(Math.abs(turn - limit), 2.0);
 		
-		//Limit the turn control amount at high and low speeds, to avoid spinouts.
-		double maxSens = 0.55;
-		double minSens = 0.2;
-		double sensitivity = maxSens - Math.abs(frwd2) * (maxSens - minSens);
-		turn2 = turn2 * sensitivity;  //Limits turn2 to +/- 0 -> maxSens.
+// 		//Limit the turn control amount at high and low speeds, to avoid spinouts.
+// 		double maxSens = 0.55;
+// 		double minSens = 0.2;
+// 		double sensitivity = maxSens - Math.abs(frwd2) * (maxSens - minSens);
+// 		turn2 = turn2 * sensitivity;  //Limits turn2 to +/- 0 -> maxSens.
 		
-		// Sets the speed scaling of the robot
-		double speed = (-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
+// 		// Sets the speed scaling of the robot
+// 		double speed = (-Robot.oi.driveStick.getThrottle() + 1.0) / 2.0;
 		
-		//Low pass filter the speed settings to the drive motors.
-		double vLeft = vLeftLPF.filter(frwd2 + turn2 / 2.0) * speed;
-		double vRite = vRiteLPF.filter(frwd2 - turn2 / 2.0) * speed;
+// 		//Low pass filter the speed settings to the drive motors.
+// 		double vLeft = vLeftLPF.filter(frwd2 + turn2 / 2.0) * speed;
+// 		double vRite = vRiteLPF.filter(frwd2 - turn2 / 2.0) * speed;
 		
-		//Calculate the expected rotation rate and changing angle.  MAXSPEED 
-		//converts the input numbers to an expected speed value. 
-		//The final equation is omega = (SpeedRite - SpeedLeft)/baseline.  
-		//omega is rotation in deg/sec.
-		double omega = Math.toDegrees((vRite - vLeft) / 2.0 * MAXSPEED / BASELINE); 
-		angle += omega * Robot.measurement.mpuDeltaT;
+// 		//Calculate the expected rotation rate and changing angle.  MAXSPEED 
+// 		//converts the input numbers to an expected speed value. 
+// 		//The final equation is omega = (SpeedRite - SpeedLeft)/baseline.  
+// 		//omega is rotation in deg/sec.
+// 		double omega = Math.toDegrees((vRite - vLeft) / 2.0 * MAXSPEED / BASELINE); 
+// 		angle += omega * Robot.measurement.mpuDeltaT;
 		
-		//Calculate the two wheel correction factor, expected - actual omega.
-		//double correction  = (omega - gz) * 0.008 / 2.0;
-	    double correction = ((omega - gz) * 0.006 + (angle - ga) * 0.28) / 2.0;
-		double vRite2 = vRite + correction;
-		double vLeft2 = vLeft - correction;
+// 		//Calculate the two wheel correction factor, expected - actual omega.
+// 		//double correction  = (omega - gz) * 0.008 / 2.0;
+// 	    double correction = ((omega - gz) * 0.006 + (angle - ga) * 0.28) / 2.0;
+// 		double vRite2 = vRite + correction;
+// 		double vLeft2 = vLeft - correction;
 		
-		//Normalize the wheel speeds to stay within +/-1.0;
-		double magMax = Math.max(Math.abs(vRite2), Math.abs(vLeft2));
-		if (magMax > 1.0) {
-			vRite2 /= magMax;
-			vLeft2 /= magMax;
-		}
+// 		//Normalize the wheel speeds to stay within +/-1.0;
+// 		double magMax = Math.max(Math.abs(vRite2), Math.abs(vLeft2));
+// 		if (magMax > 1.0) {
+// 			vRite2 /= magMax;
+// 			vLeft2 /= magMax;
+// 		}
 		
-		//Set the two motor speeds.
-		rightMotor.set(vRite2);
-		leftMotor.set(vLeft2);
-		System.out.printf("%6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %7.3f  %7.3f  %8.3f  %8.3f  %6.3f\n", 
-						   frwd, turn, sensitivity, vLeft, vRite, omega, gz, angle, ga, correction);
-		return;
-	}  // End of smoothDrive().
+// 		//Set the two motor speeds.
+// 		rightMotor.set(vRite2);
+// 		leftMotor.set(vLeft2);
+// 		System.out.printf("%6.3f  %6.3f  %6.3f  %6.3f  %6.3f  %7.3f  %7.3f  %8.3f  %8.3f  %6.3f\n", 
+// 						   frwd, turn, sensitivity, vLeft, vRite, omega, gz, angle, ga, correction);
+// 		return;
+// 	}  // End of smoothDrive().
         
 
     public void driveStraight(double speed) {
