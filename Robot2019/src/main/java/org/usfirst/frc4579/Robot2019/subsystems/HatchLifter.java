@@ -80,7 +80,7 @@ public class HatchLifter extends Subsystem {
                                             // Currently placed in this subsystem b/c it doesn't work in the main Robot class
 
     double endTime = 0;
-    double P = 0.009;
+    double P = -0.005;
     double I = 0.0;
     double D = 0.0;
 
@@ -109,6 +109,8 @@ public class HatchLifter extends Subsystem {
         }
         else{
             moveManually();
+            System.out.println("Error is: " + (totalGoals[intervalGoal] - encoder.get()));
+
             SmartDashboard.putNumber("Hatch Lift Sped: ", lifterMotor.get());
         }
 

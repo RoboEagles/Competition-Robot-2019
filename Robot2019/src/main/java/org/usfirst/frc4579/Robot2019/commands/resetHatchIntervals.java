@@ -44,14 +44,14 @@ public class resetHatchIntervals extends Command {
     @Override
     protected void initialize() {
         timer.start();
-        atGoal = false;
+        atGoal = true; // ********************* Switch to false once the code is done
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         if(Robot.hatchLifter.activeSide == "Hatch"){
-            Robot.hatchLifter.resetHeight();
+            // Robot.hatchLifter.resetHeight();
         }
         else{
             atGoal = true;
@@ -67,7 +67,7 @@ public class resetHatchIntervals extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        // Robot.hatchLifter.reset();
+        Robot.hatchLifter.reset();
     }
 
     // Called when another command which requires one or more of the same
