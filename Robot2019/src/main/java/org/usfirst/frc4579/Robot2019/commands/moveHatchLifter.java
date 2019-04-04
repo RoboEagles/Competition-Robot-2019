@@ -52,6 +52,9 @@ public class moveHatchLifter extends Command {
             // }
 
         }
+        else{
+            Robot.hatchLifter.stop();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -63,6 +66,7 @@ public class moveHatchLifter extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.hatchLifter.stop();
     }
 
     // Called when another command which requires one or more of the same

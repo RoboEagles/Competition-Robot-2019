@@ -47,6 +47,9 @@ public class moveBallLifter extends Command {
             // System.out.println("Using the cargo side");
             Robot.ballLifter.moveBallLifter();
         }
+        else{
+            Robot.ballLifter.stop();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -58,11 +61,13 @@ public class moveBallLifter extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.ballLifter.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }
